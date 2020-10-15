@@ -1,31 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import { FaWhatsapp } from 'react-icons/fa';
-import { FiClock, FiInfo } from 'react-icons/fi';
 import { Map, Marker, TileLayer } from 'react-leaflet';
+import { FiClock, FiInfo } from 'react-icons/fi';
+import { FaWhatsapp } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
-import './orphanage.css';
+
+import api from '../../services/api';
 
 import Siderbar from '../../components/Sidebar';
 import mapIcon from '../../utils/mapIcon';
-import api from '../../services/api';
 
-interface ParamsProps {
+import {
+  Container,
+  OrphanageDetail,
+  SelectImages,
+  DetailContent,
+  MapContainer,
+  DetailOpen,
+  BlockContainer,
+  WhatsappButton,
+} from './styles';
+
+type ParamsProps = {
   id: string;
-}
+};
 
-interface OrphanageProps {
+type OrphanageProps = {
   name: string;
   about: string;
   latitude: number;
   longitude: number;
   instructions: string;
   opening_hours: string;
-  opening_on_weekends: string;
+  open_on_weekends: string;
   images: Array<{
     id: string;
     url: string;
   }>;
-}
+};
 
 const Orphanage: React.FC = () => {
   const { id } = useParams<ParamsProps>();
@@ -43,17 +54,16 @@ const Orphanage: React.FC = () => {
   }
 
   return (
-    <div id="page-orphanage">
+    <Container>
       <Siderbar />
-
       <main>
-        <div className="orphanage-details">
+        <OrphanageDetail>
           <img
             src={orphanage.images[activeImageIndex].url}
             alt={orphanage.name}
           />
 
-          <div className="images">
+          <SelectImages>
             {orphanage.images.map((image, index) => (
               <button
                 key={image.id}
@@ -64,13 +74,12 @@ const Orphanage: React.FC = () => {
                 <img src={image.url} alt={orphanage.name} />
               </button>
             ))}
-          </div>
+          </SelectImages>
 
-          <div className="orphanage-details-content">
+          <DetailContent>
             <h1>{orphanage.name}</h1>
             <p>{orphanage.about}</p>
-
-            <div className="map-container">
+            <MapContainer>
               <Map
                 center={[orphanage.latitude, orphanage.longitude]}
                 zoom={16}
@@ -100,42 +109,42 @@ const Orphanage: React.FC = () => {
                   Ver rotas no Google Maps
                 </a>
               </footer>
-            </div>
+            </MapContainer>
 
             <hr />
-
             <h2>Instruções para visita</h2>
             <p>{orphanage.instructions}</p>
 
-            <div className="open-details">
-              <div className="hour">
-                <FiClock size={32} color="#15B6D6" />
+            <DetailOpen>
+              <BlockContainer>
+                <FiClock size={32} />
                 Segunda à Sexta <br />
                 {orphanage.opening_hours}
-              </div>
-              {orphanage.opening_on_weekends ? (
-                <div className="open-on-weekends">
-                  <FiInfo size={32} color="#39CC83" />
+              </BlockContainer>
+
+              {orphanage.open_on_weekends ? (
+                <BlockContainer type="open">
+                  <FiInfo size={32} />
                   Atendemos <br />
                   fim de semana
-                </div>
+                </BlockContainer>
               ) : (
-                <div className="open-on-weekends dont-open">
-                  <FiInfo size={32} color="#FF669D" />
+                <BlockContainer type="dontOpen">
+                  <FiInfo size={32} />
                   Não atendemos <br />
                   fim de semana
-                </div>
+                </BlockContainer>
               )}
-            </div>
+            </DetailOpen>
 
-            {/* <button type="button" className="contact-button">
+            <WhatsappButton type="button">
               <FaWhatsapp size={20} color="#FFF" />
               Entrar em contato
-            </button> */}
-          </div>
-        </div>
+            </WhatsappButton>
+          </DetailContent>
+        </OrphanageDetail>
       </main>
-    </div>
+    </Container>
   );
 };
 
