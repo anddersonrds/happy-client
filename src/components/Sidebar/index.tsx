@@ -11,8 +11,7 @@ const Siderbar: React.FC = () => {
 
   return (
     <Container>
-      <img src={mapMarkerImg} alt="Happy" />
-
+      <img src={mapMarkerImg} alt="Happy logo, rosto amarelo sorrindo" />
       <footer>
         <Button type="button" onClick={goBack}>
           <FiArrowLeft size={24} color="#FFF" />
