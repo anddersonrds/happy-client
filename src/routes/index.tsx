@@ -9,10 +9,9 @@ import OrphanageCreate from '../pages/OrphanageCreate';
 const Routes: React.FC = () => (
   <Switch>
     <Route path="/" exact component={Landing} />
-    <Route path="/app" exact component={OrphanagesMap} />
-
-    <Route path="/orphanages/:id" exact component={Orphanage} />
-    <Route path="/orphanages/create" exact component={OrphanageCreate} />
+    <Route path="/app" component={OrphanagesMap} />
+    <Route path="/orphanages/create" component={OrphanageCreate} />
+    <Route path="/orphanages/:id" component={Orphanage} />
   </Switch>
 );
 

@@ -39,6 +39,7 @@
     "no-use-before-define": "off",
     "camelcase":"off",
     "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
+    "jsx-a11y/label-has-associated-control": "off",
     "import/prefer-default-export": "off",
     "import/extensions": [
       "error",
@@ -48,7 +49,8 @@
         "tsx": "never"
       }
     ],
-    "@typescript-eslint/ban-types": "off"
+    "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off"
   },
   "settings": {
     "import/resolver": {
